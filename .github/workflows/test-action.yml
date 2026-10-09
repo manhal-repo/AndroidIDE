@@ -1,0 +1,34 @@
+name: ManhalIDE Test Action
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/test-action.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test GitHub Actions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check repository
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Branch: $GITHUB_REF_NAME"
+          echo "GitHub Actions is working."
+
+      - name: Check Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Show Java version
+        run: java -version
